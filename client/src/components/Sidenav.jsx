@@ -14,9 +14,9 @@ const ICONWIDTH = 25;
 
 function SideNav() {
   return (
-    <div className="drawer-side">
-      <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-      <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+    <div className="drawer-side side-nav bg-base-300">
+      <label htmlFor="my-drawer-2" className="drawer-overlay" ></label>
+      <ul className="menu p-2 overflow-y-auto w-78 bg-base-300 text-base-content">
         <li>
           <a>
             <div className="avatar">
