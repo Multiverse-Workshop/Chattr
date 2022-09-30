@@ -1,7 +1,7 @@
 import React from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 
-function ChatHeader() {
+function ChatHeader({loggedin}) {
   return (
     <div className="navbar bg-base-100 chat-header">
       <div className="flex-1">
@@ -32,7 +32,7 @@ function ChatHeader() {
           </div>
           <div className="user-info-status">
             <p>Travis Barker</p>
-            <p>Online</p>
+            <p className={loggedin ? 'text-green-500' : 'text-red-500'}>Online</p>
           </div>
         </div>
       </div>

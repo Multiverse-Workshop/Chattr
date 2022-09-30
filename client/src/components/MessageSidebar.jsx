@@ -2,10 +2,10 @@ import React from "react";
 import Chat from "./Chat";
 
 const users = ['John Doe', 'Travis Barker', 'Kate Rose', 'Robert Parker'];
-function MessageSideBar() {
+function MessageSideBar({loggedin}) {
   return (
     <>
-    <div className="drawer-side message-side-bar">
+    <div className="drawer-side message-side-bar bg-base-100">
       <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
       <div className="menu p-4 overflow-y-auto w-75 bg-base-100 text-base-content">
         <h1 className="font-bold text-lg text-center">Messages</h1>
@@ -34,7 +34,7 @@ function MessageSideBar() {
         )})}
        </div>
     </div>
-    <Chat />
+    <Chat loggedin={loggedin}/>
     </>
   );
 }
