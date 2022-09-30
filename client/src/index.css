@@ -15,6 +15,8 @@
 }
 .side-nav{
   grid-area: side-nav;
+  background-image: url('background.jpg');
+
 }
 .message-side-bar{
   border-right: 1px rgb(212, 209, 209) solid;
@@ -31,6 +33,7 @@
 }
 .chat{
   grid-area: chat;
+  background-color: rgb(244 244 245);
 }
 .chat-header{
   border-bottom: 1px solid rgb(211, 208, 208);
@@ -44,8 +47,18 @@
 .type-message{
   position: fixed;
   bottom: 0;
-  width: calc(100% - 385px)
+  width: calc(100% - 381px)
 }
 .message-input-container{
   display: flex;
+}
+.login-card{
+  width: 100%;
+  height: 100vh;
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-size:cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

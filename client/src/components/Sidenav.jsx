@@ -14,13 +14,13 @@ const ICONWIDTH = 25;
 
 function SideNav() {
   return (
-    <div className="drawer-side side-nav bg-base-300">
-      <label htmlFor="my-drawer-2" className="drawer-overlay" ></label>
-      <ul className="menu p-2 overflow-y-auto w-78 bg-base-300 text-base-content">
+    <div className="drawer-side side-nav bg-teal-300">
+      <label htmlFor="my-drawer-2" className="drawer-overlay bg-teal-300" ></label>
+      <ul className="menu p-2 overflow-y-auto w-78 text-base-content">
         <li>
           <a>
             <div className="avatar">
-              <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <div className="w-10 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
                 <img src="https://placeimg.com/192/192/people" />
               </div>
             </div>
