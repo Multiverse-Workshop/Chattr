@@ -1,12 +1,9 @@
 import SideNav from "./components/Sidenav";
-import MessageSideBar from "./components/MessageSidebar";
+import Layout from "./views/Layout";
 
 function App() {
   return (
-    <div className="main">
-      <SideNav />
-      <MessageSideBar />
-    </div>
+    <Layout />
   );
 }
 

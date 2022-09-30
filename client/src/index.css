@@ -6,9 +6,9 @@
 .main{
   height: 100vh;
   display: grid;
-  grid-template-columns: 80px 300px;
+  grid-template-columns: 80px 300px 1fr;
   grid-template-rows: 100%;
-  grid-template-areas: 'side-nav message-side-bar'
+  grid-template-areas: 'side-nav message-side-bar chat'
                         /* 'side-nav message-side-bar'
                         'side-nav message-side-bar' */
   ;
@@ -28,4 +28,24 @@
 }
 .message-info-div{
   padding: 1rem;
+}
+.chat{
+  grid-area: chat;
+}
+.chat-header{
+  border-bottom: 1px solid rgb(211, 208, 208);
+}
+.user-info-chat-header{
+  display: flex;
+}
+.chat-area{
+  overflow: auto;
+}
+.type-message{
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 385px)
+}
+.message-input-container{
+  display: flex;
 }
