@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
-function ChatMessages() {
+
+function ChatMessages({ socket, receivedMessage }) {
     const messages = [
         {user: 'Travis Barker', message: 'Hello'},
         {user: 'Travis Barker', message: 'Hi'},
@@ -21,9 +22,10 @@ function ChatMessages() {
         {user: 'Travis Barker', message: 'Cool'},
 
     ]
+
   return (
     <>
-    {messages.map((message, index) => {
+    {receivedMessage.map((message, index) => {
         return(
             <div className='message-container' key={index}>
                 <p className='message-user'><strong>{message.user}</strong></p>
