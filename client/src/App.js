@@ -9,7 +9,7 @@ function App() {
   let socket;
 
   if(loggedin){
-    socket = io.connect("http://localhost:3001");
+    socket = io.connect("http://localhost:8080");
   }
 
   return (
