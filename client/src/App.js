@@ -1,12 +1,21 @@
-import SideNav from "./components/Sidenav";
-import MessageSideBar from "./components/MessageSidebar";
+import Layout from "./views/Layout";
+import Login from "./views/Login";
+import { useState } from 'react';
+import io from 'socket.io-client'
 
 function App() {
+  const [loggedin, setLoggedIn] = useState(true);
+
+  let socket;
+
+  if(loggedin){
+    socket = io.connect("http://localhost:3001");
+  }
+
   return (
-    <div className="main">
-      <SideNav />
-      <MessageSideBar />
-    </div>
+    <>
+    {!loggedin ? <Login /> : <Layout socket={socket} loggedin={loggedin}/>}
+    </>
   );
 }
 
