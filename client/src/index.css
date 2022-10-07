@@ -41,7 +41,6 @@
 }
 .chat{
   grid-area: chat;
-  background-color: rgb(244 244 245);
   margin-top: 4rem;
   margin-bottom: 3.5rem;
 }
