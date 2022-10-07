@@ -2,29 +2,45 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Data = require('./data')
 const debug = require('debug')('server')
-const { createServer } = require("http");
-const { Server } = require("socket.io");
+//const { createServer } = require("http");
 const cors = require("cors");
-const { socketIO } = require("./socket/socket");
+const app = require('express')();
+app.use(cors({ origin: 'http://localhost:3000'}));
+const httpServer = require('http').createServer(app);
+const io = require('socket.io')(httpServer);
 
-const app = express();
-app.use(cors);
+//const { Server } = require("socket.io");
+//const httpServer = createServer(app);
 
-const httpServer = createServer(app);
+//const { socketIO } = require("./socket/socket");
 
-const io = new Server(httpServer, {
-    cors: {
-        origin: 'http://localhost:3000'
-    }
-});
+//const socketIO = require('socket.io');
+//const io = socketIO.listen(httpServer);
 
-socketIO(io);
 
+// const io = new Server(httpServer, {
+//     cors: {
+//         origin: 'http://localhost:3000'
+//     }
+// });
+
+// socketIO(io);
+// console.log(socketIO);
+
+io.on("connection", (socket) => {
+    console.log(`CONNECTED: ${socket.id}`)
+
+    socket.on("SEND_MESSAGE", (data) =>{
+        console.log(data)
+        socket.emit('RECEIVE_MESSAGE', data)
+    })
+})
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
 app.get('/', function (req, res) {
-    return res.send('Hello world');
+    console.log('INSIDE OF APP.GET')
+    res.send('Hello world');
 });
 
 app.get('/users', function (req, res) {
@@ -40,7 +56,6 @@ app.get('/users/:id', function (req, res) {
     return res.send(Data.Users(id))
 });
 
-
 httpServer.listen(process.env.PORT || 8080, () => {
-    debug(`Server is running on port 8080`)
+    console.log(`Server is running on port 8080`)
 });
