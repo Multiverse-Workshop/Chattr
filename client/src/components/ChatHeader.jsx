@@ -31,7 +31,7 @@ function ChatHeader({loggedin}) {
             </ul>
           </div>
           <div className="user-info-status">
-            <p>Travis Barker</p>
+            <p>Voldemort</p>
             <p className={loggedin ? 'text-green-500' : 'text-red-500'}>Online</p>
           </div>
         </div>
