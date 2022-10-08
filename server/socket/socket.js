@@ -9,5 +9,4 @@ module.exports.socketIO = async (io) => {
             socket.emit('RECEIVE_MESSAGE', data)
         })
     })
-
 }
