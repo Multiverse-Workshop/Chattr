@@ -1,62 +1,43 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const Data = require('./data')
-const debug = require('debug')('server')
-//const { createServer } = require("http");
-const cors = require("cors");
-const app = require('express')();
-app.use(cors({ origin: 'http://localhost:3000'}));
-const httpServer = require('http').createServer(app);
-const io = require('socket.io')(httpServer);
+const express = require("express");
+const { Server } = require("socket.io");
+const { socketIO } = require("./socket/socket");
+const app = express();
 
-//const { Server } = require("socket.io");
-//const httpServer = createServer(app);
+const server = require("http").createServer(app);
 
-//const { socketIO } = require("./socket/socket");
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        credentials: true,
+    }
+});
 
-//const socketIO = require('socket.io');
-//const io = socketIO.listen(httpServer);
+app.use(express.json());
 
-
-
-// const io = new Server(httpServer, {
-//     cors: {
-//         origin: 'http://localhost:3000'
-//     }
-// });
-
-// socketIO(io);
-// console.log(socketIO);
-
-io.on("connection", (socket) => {
-    console.log(`CONNECTED: ${socket.id}`)
-
-    socket.on("SEND_MESSAGE", (data) =>{
-        console.log(data)
-        socket.emit('RECEIVE_MESSAGE', data)
-    })
-})
-
-app.use(bodyParser.json({ type: 'application/json' }));
-
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     console.log('INSIDE OF APP.GET')
     res.send('Hello world');
 });
 
-app.get('/users', function (req, res) {
-    return res.send(Data.Users)
+app.get('/users', (req, res) => {
+    res.send(Data.Users)
 });
 
-app.post('/login', function (req, res) {
-    return res.send()
+app.post('/login', (req, res) => {
+    res.send()
 })
 
-app.get('/users/:id', function (req, res) {
-    const id = req.params.Data.Users.id
-    return res.send(Data.Users(id))
+app.get('/users/:id', (req, res) => {
+    //converting param into number
+    const id = Number(req.params.id);
+    //filtering users array to find correct user
+    let foundUser = Data.Users.filter((users) => { return users.id === id });
+    res.send(foundUser)
 });
 
-httpServer.listen(process.env.PORT || 8080, () => {
+socketIO(io);
+
+server.listen(process.env.PORT || 8080, () => {
     console.log(`Server is running on port 8080`)
 });
