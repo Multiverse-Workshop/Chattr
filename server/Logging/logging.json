@@ -1,0 +1,20 @@
+{
+    "SOCKET_CONNECTION": [
+
+    ],
+    "ERROR_SOCKET_CONNECTION": [
+
+    ],
+    "MESSAGE_SENT": [
+
+    ],
+    "ERROR_MESSAGE_SENT": [
+
+    ],
+    "MESSAGE_DElIVERED" : [
+
+    ],
+    "ERROR_MESSAGE_DElIVERED" : [
+
+    ]
+}

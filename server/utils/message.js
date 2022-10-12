@@ -3,13 +3,13 @@ let time = today.getHours() + ":" + today.getMinutes();
 let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 
-let generateDeliveredMessage = (user, message, date, sent, delivered) => {
+let generateDeliveredMessage = (user, message, date, sent) => {
     return {
         user,
         message,
         date,
         sent,
-        delivered,
+        delivered: true,
         deliveredAt: time
     }
 };

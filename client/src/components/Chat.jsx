@@ -19,7 +19,7 @@ function Chat({ loggedin, socket }) {
     console.log(receivedMessage)
     try{
       //setResponse('sent')
-      socket.emit("SEND_MESSAGE", {message, user, sentTime: time, date, sent: true, delivered: false, })
+      socket.emit("SEND_MESSAGE", {message, user, sentTime: time, date, sent: true})
       //console.log(response)
     }
     catch(error){
