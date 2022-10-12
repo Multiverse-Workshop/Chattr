@@ -1,39 +1,49 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 
 function Chat({ loggedin, socket }) {
-
   const [message, setMessage] = useState({});
-  const [user, setUser] = useState('Voldemort');
-  const [receivedMessage, setReceivedMessage]= useState([]);
+  const [user, setUser] = useState("Voldemort");
+  const [receivedMessage, setReceivedMessage] = useState([]);
   //const [response, setResponse] = useState('');
 
   let today = new Date();
   let time = today.getHours() + ":" + today.getMinutes();
-  let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  console.log(time)
+  let date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  console.log(time);
 
   const send = () => {
     console.log(message);
-    console.log(receivedMessage)
-    try{
+    console.log(receivedMessage);
+    try {
       //setResponse('sent')
-      socket.emit("SEND_MESSAGE", {message, user, sentTime: time, date, sent: true})
-      //console.log(response)
+      socket.emit(
+        "SEND_MESSAGE",
+        {
+          message,
+          user,
+          sentTime: time,
+          date,
+          sent: true,
+        },
+        (message) => {
+          console.log(message);
+        }
+      );
+    } catch (error) {
+      console.log({ error: error.message });
     }
-    catch(error){
-      console.log({error: error.message})
-    }
-    
-  }
-  
-    useEffect(() => {
-      socket.on('RECEIVE_MESSAGE', (data) => {
-        console.log(data)
-        setReceivedMessage(prev => [...prev, data]);
-      })
-    },[socket])
+  };
+
+  useEffect(() => {
+    socket.on("RECEIVE_MESSAGE", (data, callback) => {
+      console.log(data);
+      setReceivedMessage((prev) => [...prev, data]);
+      callback();
+    });
+  }, [socket]);
 
   return (
     <div className="chat">
@@ -51,7 +61,9 @@ function Chat({ loggedin, socket }) {
             type="text"
             placeholder="Type your message here"
             className="input bg-zinc-100 w-full max-w-xxl message-input"
-            onChange={(e) => {setMessage(e.target.value)}}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
           />
           <button className="btn btn-outline btn-secondary" onClick={send}>
             Send Message
