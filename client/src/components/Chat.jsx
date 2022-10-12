@@ -7,15 +7,30 @@ function Chat({ loggedin, socket }) {
   const [message, setMessage] = useState({});
   const [user, setUser] = useState('Voldemort');
   const [receivedMessage, setReceivedMessage]= useState([]);
+  //const [response, setResponse] = useState('');
+
+  let today = new Date();
+  let time = today.getHours() + ":" + today.getMinutes();
+  let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  console.log(time)
 
   const send = () => {
     console.log(message);
     console.log(receivedMessage)
-    socket.emit("SEND_MESSAGE", {message, user})
+    try{
+      //setResponse('sent')
+      socket.emit("SEND_MESSAGE", {message, user, sentTime: time, date, sent: true, delivered: false, })
+      //console.log(response)
+    }
+    catch(error){
+      console.log({error: error.message})
+    }
+    
   }
   
     useEffect(() => {
       socket.on('RECEIVE_MESSAGE', (data) => {
+        console.log(data)
         setReceivedMessage(prev => [...prev, data]);
       })
     },[socket])
