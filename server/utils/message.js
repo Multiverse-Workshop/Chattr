@@ -3,8 +3,9 @@ let time = today.getHours() + ":" + today.getMinutes();
 let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 
-let generateDeliveredMessage = (user, message, date, sent) => {
+let generateDeliveredMessage = (id, user, message, date, sent) => {
     return {
+        id,
         user,
         message,
         date,
@@ -13,8 +14,18 @@ let generateDeliveredMessage = (user, message, date, sent) => {
         deliveredAt: time
     }
 };
+let generateSentMessage = (id, user, message, date, sent) => {
+    return {
+        id,
+        user,
+        message,
+        date,
+        sent,
+        sentAt: time
+    }
+};
 
-let generateUserConnected = (id) => {
+let generateUserConnectionStatus = (id) => {
     return {
         id,
         timeConnected: time,
@@ -22,12 +33,15 @@ let generateUserConnected = (id) => {
     }
 }
 
-let acknowledgment = (ack) => {
+let acknowledgment = (ack,id, user, message) => {
     return {
         ack,
+        id,
+        user,
+        message,
         acknowledgmentTime: time,
         acknowledgmentDate: date
     }
 }
 
-module.exports = {generateDeliveredMessage, generateUserConnected, acknowledgment}
+module.exports = {generateDeliveredMessage, generateSentMessage, generateUserConnectionStatus, acknowledgment}

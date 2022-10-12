@@ -2,6 +2,9 @@
     "SOCKET_CONNECTION": [
 
     ],
+    "SOCKET_DISCONNECTION": [
+
+    ],
     "ERROR_SOCKET_CONNECTION": [
 
     ],
