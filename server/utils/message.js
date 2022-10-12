@@ -14,7 +14,7 @@ let generateDeliveredMessage = (user, message, date, sent) => {
     }
 };
 
-let generateUserConnected = (id, timeConnected, dateConnected) => {
+let generateUserConnected = (id) => {
     return {
         id,
         timeConnected: time,
@@ -22,4 +22,12 @@ let generateUserConnected = (id, timeConnected, dateConnected) => {
     }
 }
 
-module.exports = {generateDeliveredMessage, generateUserConnected}
+let acknowledgment = (ack) => {
+    return {
+        ack,
+        acknowledgmentTime: time,
+        acknowledgmentDate: date
+    }
+}
+
+module.exports = {generateDeliveredMessage, generateUserConnected, acknowledgment}

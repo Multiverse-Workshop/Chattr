@@ -6,7 +6,7 @@ function Chat({ loggedin, socket }) {
   const [message, setMessage] = useState({});
   const [user, setUser] = useState("Voldemort");
   const [receivedMessage, setReceivedMessage] = useState([]);
-  //const [response, setResponse] = useState('');
+  const [logger, setLogger] = useState([]);
 
   let today = new Date();
   let time = today.getHours() + ":" + today.getMinutes();
@@ -28,8 +28,16 @@ function Chat({ loggedin, socket }) {
           date,
           sent: true,
         },
-        (message) => {
-          console.log(message);
+        (ack) => {
+          console.log(ack);
+          let acknowledgment = {
+            ack,
+            message,
+            user,
+            acknowledgmentTime: time,
+            acknowledgmentDate: date
+          }
+          setLogger((prev) => [...prev, acknowledgment])
         }
       );
     } catch (error) {
@@ -41,9 +49,12 @@ function Chat({ loggedin, socket }) {
     socket.on("RECEIVE_MESSAGE", (data, callback) => {
       console.log(data);
       setReceivedMessage((prev) => [...prev, data]);
-      callback();
+      callback('ACKNOWLEDGMENT_MESSAGE_DELIVERED')
+      
     });
   }, [socket]);
+
+  console.log(logger);
 
   return (
     <div className="chat">

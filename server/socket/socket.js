@@ -2,6 +2,7 @@ const debug = require("debug")("socket");
 const {
   generateDeliveredMessage,
   generateUserConnected,
+  acknowledgment,
 } = require("../utils/message");
 const logging = require("../Logging/logging.json");
 
@@ -25,10 +26,12 @@ module.exports.socketIO = async (io) => {
             data.sent
           );
           logging.MESSAGE_DElIVERED.push(messageDelivered);
-          socket.emit("RECEIVE_MESSAGE", messageDelivered, () => {
-            console.log("ACKNOWLEDGE_MESSAGE_DELIVERED");
+
+          socket.emit("RECEIVE_MESSAGE", messageDelivered, (message) => {
+            logging.ACKNOWLEDGE_MESSAGE_DELIVERED.push(acknowledgment(message))
+            console.log(logging)
           });
-          console.log(logging);
+
         } catch (error) {
           socket.emit(error.message);
           logging.ERROR_MESSAGE_DElIVERED(error.message);
