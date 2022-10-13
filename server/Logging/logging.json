@@ -1,0 +1,26 @@
+{
+    "SOCKET_CONNECTION": [
+
+    ],
+    "SOCKET_DISCONNECTION": [
+
+    ],
+    "ERROR_SOCKET_CONNECTION": [
+
+    ],
+    "MESSAGE_SENT": [
+
+    ],
+    "ERROR_MESSAGE_SENT": [
+
+    ],
+    "MESSAGE_DELIVERED" : [
+
+    ],
+    "ERROR_MESSAGE_DELIVERED" : [
+
+    ],
+    "ACKNOWLEDGE_MESSAGE_DELIVERED": [
+        
+    ]
+}

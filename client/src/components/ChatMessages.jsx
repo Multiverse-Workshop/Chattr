@@ -28,7 +28,7 @@ function ChatMessages({ socket, receivedMessage }) {
     {receivedMessage.map((message, index) => {
         return(
             <div className='message-container' key={index}>
-                <p className='message-user'><strong>{message.user}</strong></p>
+                <p className='message-user'><strong>{message.user}</strong> <em>{message.deliveredAt}</em></p>
                 <p className='message-text'>{message.message}</p>
             </div>
         );
