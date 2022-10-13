@@ -12,6 +12,10 @@ module.exports.socketIO = async (io) => {
     logging.SOCKET_CONNECTION.push(generateUserConnectionStatus(socket.id));
     console.log(logging.SOCKET_CONNECTION);
 
+    socket.on('JOIN_ROOM', (data) => {
+        socket.join(data);
+    });
+
     try {
       socket.on("SEND_MESSAGE", (data, callback) => {
         logging.MESSAGE_SENT.push(generateSentMessage(socket.id,
@@ -19,6 +23,7 @@ module.exports.socketIO = async (io) => {
             data.message,
             data.date,
             data.sent));
+        console.log(data.room)
 
         callback("ACKNOWLEDGE_MESSAGE_SENT");
         try {
@@ -29,9 +34,9 @@ module.exports.socketIO = async (io) => {
             data.date,
             data.sent
           );
-          logging.MESSAGE_DElIVERED.push(messageDelivered);
+          logging.MESSAGE_DELIVERED.push(messageDelivered);
 
-          socket.emit("RECEIVE_MESSAGE", messageDelivered, (message) => {
+          io.in(data.room).emit("RECEIVE_MESSAGE", messageDelivered, (message) => {
             logging.ACKNOWLEDGE_MESSAGE_DELIVERED.push(
               acknowledgment(message, socket.id, data.user, data.message)
             );
@@ -39,7 +44,7 @@ module.exports.socketIO = async (io) => {
           });
         } catch (error) {
           socket.emit(error.message);
-          logging.ERROR_MESSAGE_DElIVERED(error.message);
+          logging.ERROR_MESSAGE_DELIVERED.push({error : error.message});
         }
       });
     } catch (error) {

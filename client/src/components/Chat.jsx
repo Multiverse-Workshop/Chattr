@@ -12,11 +12,10 @@ function Chat({ loggedin, socket }) {
   let time = today.getHours() + ":" + today.getMinutes();
   let date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  console.log(time);
+
+  let room = '100'
 
   const send = () => {
-    console.log(message);
-    console.log(receivedMessage);
     try {
       //setResponse('sent')
       socket.emit(
@@ -27,9 +26,9 @@ function Chat({ loggedin, socket }) {
           sentTime: time,
           date,
           sent: true,
+          room: '100'
         },
         (ack) => {
-          console.log(ack);
           let acknowledgment = {
             ack,
             message,
@@ -45,12 +44,23 @@ function Chat({ loggedin, socket }) {
     }
   };
 
+
+  const joinRoom = () => {
+    if(room !== ''){
+      socket.emit('JOIN_ROOM', room)
+      console.log(`now joining room`, room)
+    }
+  }
+
+  useEffect(() => {
+    joinRoom();
+  },[])
+
   useEffect(() => {
     socket.on("RECEIVE_MESSAGE", (data, callback) => {
+      callback('ACKNOWLEDGMENT_MESSAGE_DELIVERED')
       console.log(data);
       setReceivedMessage((prev) => [...prev, data]);
-      callback('ACKNOWLEDGMENT_MESSAGE_DELIVERED')
-      
     });
   }, [socket]);
 
