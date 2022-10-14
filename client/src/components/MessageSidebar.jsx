@@ -2,7 +2,8 @@ import React from "react";
 import Chat from "./Chat";
 
 const users = ['John Doe', 'Travis Barker', 'Kate Rose', 'Robert Parker'];
-function MessageSideBar({loggedin, socket}) {
+function MessageSideBar({socket}) {
+
   return (
     <>
     <div className="drawer-side message-side-bar bg-base-100">
@@ -34,7 +35,7 @@ function MessageSideBar({loggedin, socket}) {
         )})}
        </div>
     </div>
-    <Chat socket={socket} loggedin={loggedin}/>
+    <Chat socket={socket}/>
     </>
   );
 }

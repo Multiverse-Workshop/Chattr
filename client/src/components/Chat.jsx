@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
+import { saveMessage } from '../features/messageHistorySlice';
+import { getSavedMessages } from "../features/messageHistorySlice";
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function Chat({ loggedin, socket }) {
+function Chat({ socket }) {
+
+  const dispatch = useDispatch();
+  const messageHistory = useSelector((store) => store.messageHistory)
+
+  const userInfo = useSelector((store) => store.user);
+  let user = userInfo.user.username;
+
   const [message, setMessage] = useState({});
-  const [user, setUser] = useState("Voldemort");
   const [receivedMessage, setReceivedMessage] = useState([]);
   const [logger, setLogger] = useState([]);
 
@@ -46,20 +56,30 @@ function Chat({ loggedin, socket }) {
 
   const joinRoom = () => {
     if(room !== ''){
-      socket.emit('JOIN_ROOM', room)
-      console.log(`now joining room`, room)
+      try{
+        socket.emit('JOIN_ROOM', room)
+      }catch(e){
+        console.log(e)
+      }
+      
     }
   }
 
   useEffect(() => {
     joinRoom();
+    setReceivedMessage((prev) => [...prev, ...messageHistory]);
   },[])
+
+  useEffect(() => {
+    dispatch(getSavedMessages());
+  },[receivedMessage])
 
   useEffect(() => {
     socket.on("RECEIVE_MESSAGE", (data, callback) => {
       callback('ACKNOWLEDGMENT_MESSAGE_DELIVERED')
       console.log(data);
       setReceivedMessage((prev) => [...prev, data]);
+      dispatch(saveMessage(data));
     });
   }, [socket]);
 
@@ -68,7 +88,7 @@ function Chat({ loggedin, socket }) {
   return (
     <div className="chat">
       <div className="chat-header">
-        <ChatHeader loggedin={loggedin} />
+        <ChatHeader />
       </div>
       <div className="chat-area overflow-y-scroll">
         <div className="">
