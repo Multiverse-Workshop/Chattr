@@ -1,21 +1,32 @@
 import Layout from "./views/Layout";
 import Login from "./views/Login";
-import { useState } from "react";
-import io from "socket.io-client";
-//import BrowserRouter from "./components/BrowserRouter";
+import { connect } from './features/socketSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {socket} from './utils/socketConnection';
+import { useEffect } from "react";
 
 function App() {
-  const [loggedin, setLoggedIn] = useState(true);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    socket.on('connect', () => {
+      dispatch(connect({
+        socketId: socket.id
+      }))
+  });
+  },[])
 
-  let socket;
+  const users = useSelector((store) => store.user);
+  console.log(users)
+  let loggedin = users.user.loggedin;
 
-  if (loggedin) {
-    socket = io.connect("http://localhost:8080");
+  if(!loggedin){
+    return <Login />
   }
 
   return (
     <>
-    {!loggedin ? <Login /> : <Layout socket={socket} loggedin={loggedin}/>}
+    <Layout socket={socket} />
     </>
   );
 }

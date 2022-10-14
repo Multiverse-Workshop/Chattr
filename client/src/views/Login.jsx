@@ -1,6 +1,29 @@
 import React from "react";
+import { login } from '../features/userSlice';
+import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 
 function Login() {
+  const dispatch = useDispatch();
+  const { socket } = useSelector((store) => store.socket);
+  console.log(socket.socketId)
+
+
+  const anonLogin = () => {
+    try{
+      dispatch(login({
+        loggedin: true,
+        username: 'ANON',
+        password: 'PASSWORD',
+        img: 'https://placeimg.com/192/192/people',
+        socketId: socket.socketId
+      }));
+    }catch(e){
+      console.log(e)
+    }
+  }
+    
+
   return (
     <div className="login-card">
     <div className="card w-96 glass">
@@ -19,7 +42,7 @@ function Login() {
       <div className="card-actions justify-end">
       <button className="btn btn-active  btn-primary">Login</button>
             <button className="btn btn-active btn-secondary">Sign Up</button>
-            <button className="btn btn-active ">Anonymous</button>
+            <button className="btn btn-active " onClick={anonLogin}>Anonymous</button>
       </div>                        
     </div>
   </div>
