@@ -4,6 +4,7 @@ import { connect } from './features/socketSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {socket} from './utils/socketConnection';
 import { useEffect } from "react";
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,9 +25,15 @@ function App() {
     return <Login />
   }
 
+
+  // NEED TO FIX STRUCTURE OF ROUTES!!
   return (
     <>
     <Layout socket={socket} />
+    <Routes>
+        <Route path='/main' element={<Layout socket={socket} />} />
+        <Route path='/' element={<Login />} />
+    </Routes>
     </>
   );
 }
