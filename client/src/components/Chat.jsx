@@ -13,8 +13,6 @@ function Chat({ loggedin, socket }) {
   let date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
-  let room = '100'
-
   const send = () => {
     try {
       //setResponse('sent')
@@ -44,6 +42,7 @@ function Chat({ loggedin, socket }) {
     }
   };
 
+  let room = '100'
 
   const joinRoom = () => {
     if(room !== ''){
