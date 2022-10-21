@@ -1,1 +1,0 @@
-//use for socket connection
