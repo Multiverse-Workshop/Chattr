@@ -23,4 +23,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Save logs to database
 - Add functionality so users can message a specific person
 - For sidebar change ```<a>``` tags to use react-router-dom and add different functionality for links
+- functionality for user login or sign up not just anon login
 
