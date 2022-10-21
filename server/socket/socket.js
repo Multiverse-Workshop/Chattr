@@ -12,18 +12,21 @@ module.exports.socketIO = async (io) => {
     logging.SOCKET_CONNECTION.push(generateUserConnectionStatus(socket.id));
     console.log(logging.SOCKET_CONNECTION);
 
-    socket.on('JOIN_ROOM', (data) => {
-        socket.join(data);
+    socket.on("JOIN_ROOM", (data) => {
+      socket.join(data);
     });
 
     try {
       socket.on("SEND_MESSAGE", (data, callback) => {
-        logging.MESSAGE_SENT.push(generateSentMessage
-          (socket.id,
+        logging.MESSAGE_SENT.push(
+          generateSentMessage(
+            socket.id,
             data.user,
             data.message,
             data.date,
-            data.sent));
+            data.sent
+          )
+        );
 
         callback("ACKNOWLEDGE_MESSAGE_SENT");
         try {
@@ -35,15 +38,19 @@ module.exports.socketIO = async (io) => {
           );
           logging.MESSAGE_DELIVERED.push(messageDelivered);
 
-          io.in(data.room).emit("RECEIVE_MESSAGE", messageDelivered, (message) => {
-            logging.ACKNOWLEDGE_MESSAGE_DELIVERED.push(
-              acknowledgment(socket.id, data.user, data.message)
-            );
-            console.log(logging);
-          });
+          io.in(data.room).emit(
+            "RECEIVE_MESSAGE",
+            messageDelivered,
+            (message) => {
+              logging.ACKNOWLEDGE_MESSAGE_DELIVERED.push(
+                acknowledgment(socket.id, data.user, data.message)
+              );
+              console.log(logging);
+            }
+          );
         } catch (error) {
           socket.emit(error.message);
-          logging.ERROR_MESSAGE_DELIVERED.push({error : error.message});
+          logging.ERROR_MESSAGE_DELIVERED.push({ error: error.message });
         }
       });
     } catch (error) {

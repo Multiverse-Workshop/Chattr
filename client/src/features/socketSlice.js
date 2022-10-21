@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //set up initialState
 
 const initialState = {
-    socket: ''
+  socket: "",
 };
 
 //create slice
@@ -15,7 +15,7 @@ const socketSlice = createSlice({
   initialState,
   reducers: {
     connect: (state, action) => {
-        state.socket = {...action.payload}
+      state.socket = { ...action.payload };
     },
   },
 });

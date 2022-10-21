@@ -1,11 +1,10 @@
 import React from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 function ChatHeader() {
   const user = useSelector((store) => store.user);
   let loggedin = user.user.loggedin;
-
 
   return (
     <div className="navbar bg-base-100 chat-header">
@@ -37,12 +36,14 @@ function ChatHeader() {
           </div>
           <div className="user-info-status">
             <p>{user.user.username}</p>
-            <p className={loggedin ? 'text-green-500' : 'text-red-500'}>Online</p>
+            <p className={loggedin ? "text-green-500" : "text-red-500"}>
+              Online
+            </p>
           </div>
         </div>
       </div>
       <div className="flex-none">
-        <InformationCircleIcon  width={25}/>
+        <InformationCircleIcon width={25} />
       </div>
     </div>
   );

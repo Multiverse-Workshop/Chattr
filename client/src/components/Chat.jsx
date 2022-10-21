@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
-import { saveMessage } from '../features/messageHistorySlice';
+import { saveMessage } from "../features/messageHistorySlice";
 import { getSavedMessages } from "../features/messageHistorySlice";
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import dayjs from 'dayjs';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 function Chat({ socket }) {
-
   const dispatch = useDispatch();
-  const messageHistory = useSelector((store) => store.messageHistory)
+  const messageHistory = useSelector((store) => store.messageHistory);
 
   const userInfo = useSelector((store) => store.user);
   let user = userInfo.user.username;
@@ -29,7 +28,7 @@ function Chat({ socket }) {
           sentTime: dayjs().format("HH:mm:ss"),
           date: dayjs().format("YYYY-MM-DD"),
           sent: true,
-          room: '100'
+          room: "100",
         },
         (ack) => {
           let acknowledgment = {
@@ -37,9 +36,9 @@ function Chat({ socket }) {
             message,
             user,
             acknowledgmentTime: dayjs().format("HH:mm:ss"),
-            acknowledgmentDate: dayjs().format("YYYY-MM-DD")
-          }
-          setLogger((prev) => [...prev, acknowledgment])
+            acknowledgmentDate: dayjs().format("YYYY-MM-DD"),
+          };
+          setLogger((prev) => [...prev, acknowledgment]);
         }
       );
     } catch (error) {
@@ -47,36 +46,34 @@ function Chat({ socket }) {
     }
   };
 
-  let room = '100'
+  let room = "100";
 
   const joinRoom = () => {
-    if(room !== ''){
-      try{
-        socket.emit('JOIN_ROOM', room)
-      }catch(e){
-        console.log(e)
+    if (room !== "") {
+      try {
+        socket.emit("JOIN_ROOM", room);
+      } catch (e) {
+        console.log(e);
       }
-      
     }
-  }
+  };
 
   useEffect(() => {
     joinRoom();
     setReceivedMessage((prev) => [...prev, ...messageHistory.message]);
-  },[])
+  }, []);
 
   useEffect(() => {
     dispatch(getSavedMessages());
-  },[receivedMessage])
+  }, [receivedMessage]);
 
   useEffect(() => {
     socket.on("RECEIVE_MESSAGE", (data, callback) => {
-      callback('ACKNOWLEDGMENT_MESSAGE_DELIVERED')
+      callback("ACKNOWLEDGMENT_MESSAGE_DELIVERED");
       setReceivedMessage((prev) => [...prev, data]);
       dispatch(saveMessage(data));
     });
   }, [socket]);
-
 
   return (
     <div className="chat">

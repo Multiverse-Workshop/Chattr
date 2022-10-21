@@ -5,14 +5,13 @@ import { createSlice } from "@reduxjs/toolkit";
 //set up initialState
 
 const initialState = {
-    user: {
-        loggedin: false,
-        username: "",
-        password: "",
-        img: "",
-        socketId: "",
-    }
-  
+  user: {
+    loggedin: false,
+    username: "",
+    password: "",
+    img: "",
+    socketId: "",
+  },
 };
 
 //create slice
@@ -23,10 +22,10 @@ const userSlice = createSlice({
   reducers: {
     login: (state, action) => {
       //replace current state with new state
-      state.user = {...action.payload };
+      state.user = { ...action.payload };
     },
     logout: (state) => {
-        //revert to original
+      //revert to original
       state = {
         ...state,
         loggedin: false,
