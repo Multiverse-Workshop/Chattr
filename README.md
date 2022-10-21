@@ -9,8 +9,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   3.    change directories into client and ```npm install```
 
 ## To run project on local
-1.  ```npm start``` in client directory
-2.  ```npm run dev``` in server directory
+1. ```npm run dev``` in server directory
+2.  ```npm start``` in client directory 
 
 ## How to use app
 - Currently all users are directed into the same room, to login click on anonymous button, this will log you in as an anon user and you can then send messages.
