@@ -22,7 +22,7 @@ const initialState = {
         date: '2022-10-14',
         sent: true,
         delivered: true,
-        deliveredAt: '9:51'
+        deliveredAt: '10:21'
       },]
     }
 
