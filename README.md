@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with Chattr
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a project to showcase fundamental usage of socket.io, logging, postgresql, redux toolkit, express, daisyUI, and tailwind. 
 
