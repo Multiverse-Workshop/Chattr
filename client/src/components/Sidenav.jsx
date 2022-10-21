@@ -21,7 +21,7 @@ function SideNav() {
           <a>
             <div className="avatar">
               <div className="w-10 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-                <img src="https://placeimg.com/192/192/people" />
+                <img src="https://placeimg.com/192/192/people" alt='pfp' />
               </div>
             </div>
           </a>
@@ -33,32 +33,32 @@ function SideNav() {
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/chat">
             <ChatBubbleBottomCenterIcon width={ICONWIDTH} />
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/video">
             <VideoCameraIcon width={ICONWIDTH} />
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/music">
             <MusicalNoteIcon width={ICONWIDTH} />
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/calendar">
             <CalendarDaysIcon width={ICONWIDTH} />
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="/settings">
             <Cog6ToothIcon width={ICONWIDTH} />
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="logout">
             <ArrowLeftOnRectangleIcon width={ICONWIDTH} />
           </a>
         </li>

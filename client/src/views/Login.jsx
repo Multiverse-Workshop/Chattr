@@ -2,12 +2,12 @@ import React from "react";
 import { login } from '../features/userSlice';
 import { useDispatch } from "react-redux";
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { socket } = useSelector((store) => store.socket);
-  console.log(socket.socketId)
-
 
   const anonLogin = () => {
     try{
@@ -18,11 +18,11 @@ function Login() {
         img: 'https://placeimg.com/192/192/people',
         socketId: socket.socketId
       }));
+      navigate('/chat')
     }catch(e){
       console.log(e)
     }
   }
-    
 
   return (
     <div className="login-card">

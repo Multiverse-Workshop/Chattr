@@ -5,6 +5,7 @@ import { saveMessage } from '../features/messageHistorySlice';
 import { getSavedMessages } from "../features/messageHistorySlice";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 
 function Chat({ socket }) {
 
@@ -18,21 +19,15 @@ function Chat({ socket }) {
   const [receivedMessage, setReceivedMessage] = useState([]);
   const [logger, setLogger] = useState([]);
 
-  let today = new Date();
-  let time = today.getHours() + ":" + today.getMinutes();
-  let date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-
   const send = () => {
     try {
-      //setResponse('sent')
       socket.emit(
         "SEND_MESSAGE",
         {
           message,
           user,
-          sentTime: time,
-          date,
+          sentTime: dayjs().format("HH:mm:ss"),
+          date: dayjs().format("YYYY-MM-DD"),
           sent: true,
           room: '100'
         },
@@ -41,8 +36,8 @@ function Chat({ socket }) {
             ack,
             message,
             user,
-            acknowledgmentTime: time,
-            acknowledgmentDate: date
+            acknowledgmentTime: dayjs().format("HH:mm:ss"),
+            acknowledgmentDate: dayjs().format("YYYY-MM-DD")
           }
           setLogger((prev) => [...prev, acknowledgment])
         }
@@ -67,7 +62,7 @@ function Chat({ socket }) {
 
   useEffect(() => {
     joinRoom();
-    setReceivedMessage((prev) => [...prev, ...messageHistory]);
+    setReceivedMessage((prev) => [...prev, ...messageHistory.message]);
   },[])
 
   useEffect(() => {
@@ -77,13 +72,11 @@ function Chat({ socket }) {
   useEffect(() => {
     socket.on("RECEIVE_MESSAGE", (data, callback) => {
       callback('ACKNOWLEDGMENT_MESSAGE_DELIVERED')
-      console.log(data);
       setReceivedMessage((prev) => [...prev, data]);
       dispatch(saveMessage(data));
     });
   }, [socket]);
 
-  console.log(logger);
 
   return (
     <div className="chat">

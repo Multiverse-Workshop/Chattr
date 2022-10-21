@@ -1,27 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
-
-function ChatMessages({ socket, receivedMessage }) {
-    const messages = [
-        {user: 'Travis Barker', message: 'Hello'},
-        {user: 'Travis Barker', message: 'Hi'},
-        {user: 'Travis Barker', message: 'What up'},
-        {user: 'Travis Barker', message: 'Nothing'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-        {user: 'Travis Barker', message: 'Cool'},
-
-    ]
+function ChatMessages({ receivedMessage }) {
 
   return (
     <>

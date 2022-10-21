@@ -1,13 +1,12 @@
 //import createSlice from toolkit
 
 import { createSlice } from "@reduxjs/toolkit";
-import userSlice from "./userSlice";
 
 //set up initialState
 
-const initialState = [
+const initialState = {
     
-    {
+   message:[ {
         id: 'TEWIPHPPHrNh-YTIAAFb',
         user: 'ANON',
         message: 'hello',
@@ -24,8 +23,8 @@ const initialState = [
         sent: true,
         delivered: true,
         deliveredAt: '9:51'
-      },
-]
+      },]
+    }
 
 //create slice
 
@@ -34,7 +33,7 @@ const messageHistorySlice = createSlice({
     initialState,
     reducers: {
         saveMessage: (state, action) => {
-            state.push(action.payload)
+            state.message.push(action.payload)
         },
         getSavedMessages: (state,action) => {
             return state;

@@ -18,12 +18,12 @@ module.exports.socketIO = async (io) => {
 
     try {
       socket.on("SEND_MESSAGE", (data, callback) => {
-        logging.MESSAGE_SENT.push(generateSentMessage(socket.id,
+        logging.MESSAGE_SENT.push(generateSentMessage
+          (socket.id,
             data.user,
             data.message,
             data.date,
             data.sent));
-        console.log(data.room)
 
         callback("ACKNOWLEDGE_MESSAGE_SENT");
         try {
@@ -31,14 +31,13 @@ module.exports.socketIO = async (io) => {
             socket.id,
             data.user,
             data.message,
-            data.date,
             data.sent
           );
           logging.MESSAGE_DELIVERED.push(messageDelivered);
 
           io.in(data.room).emit("RECEIVE_MESSAGE", messageDelivered, (message) => {
             logging.ACKNOWLEDGE_MESSAGE_DELIVERED.push(
-              acknowledgment(message, socket.id, data.user, data.message)
+              acknowledgment(socket.id, data.user, data.message)
             );
             console.log(logging);
           });

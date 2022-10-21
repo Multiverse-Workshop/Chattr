@@ -1,17 +1,14 @@
-let today = new Date();
-let time = today.getHours() + ":" + today.getMinutes();
-let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const dayjs = require('dayjs');
 
-
-let generateDeliveredMessage = (id, user, message, date, sent) => {
+let generateDeliveredMessage = (id, user, message, sent) => {
     return {
         id,
         user,
         message,
-        date,
+        date: dayjs().format("YYYY-MM-DD"),
         sent,
         delivered: true,
-        deliveredAt: time
+        deliveredAt: dayjs().format("HH:mm")
     }
 };
 let generateSentMessage = (id, user, message, date, sent) => {
@@ -19,28 +16,27 @@ let generateSentMessage = (id, user, message, date, sent) => {
         id,
         user,
         message,
-        date,
+        date: dayjs().format("YYYY-MM-DD"),
         sent,
-        sentAt: time
+        sentAt: dayjs().format("HH:mm")
     }
 };
 
 let generateUserConnectionStatus = (id) => {
     return {
         id,
-        timeConnected: time,
-        dateConnected: date
+        timeConnected: dayjs().format("HH:mm:ss"),
+        dateConnected: dayjs().format("YYYY-MM-DD")
     }
 }
 
-let acknowledgment = (ack,id, user, message) => {
+let acknowledgment = (id, user, message) => {
     return {
-        ack,
         id,
         user,
         message,
-        acknowledgmentTime: time,
-        acknowledgmentDate: date
+        acknowledgmentTime: dayjs().format("HH:mm:ss"),
+        acknowledgmentDate: dayjs().format("YYYY-MM-DD")
     }
 }
 
