@@ -67,6 +67,9 @@ function Chat({ socket }) {
     dispatch(getSavedMessages());
   }, [receivedMessage]);
 
+  //uncomment below line to view ACKNOWLEDGMENT_MESSAGE_SENT in console 
+  //console.log(logger)
+
   useEffect(() => {
     socket.on("RECEIVE_MESSAGE", (data, callback) => {
       callback("ACKNOWLEDGMENT_MESSAGE_DELIVERED");
