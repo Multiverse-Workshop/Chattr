@@ -27,4 +27,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - After sending message, anything in text field is deleted
 - Ability to send message by clicking enter button
 - Auto-scroll to bottom of messages
-
+- Current errorboundary is very basic, possibly add more functionality to it
