@@ -1,9 +1,21 @@
-const express = require('express');
+require('dotenv').config()
 const Data = require('../data.json');
+const pool = require('../queries');
+const bcrypt = require('bcrypt');
 
 exports.registerUser = async(req, res) => {
+    const {userName, email, password, firstName, lastName} = req.body;
     try{
-        res.send('Try to register');
+        const hash = await bcrypt.hash(password, 10);
+        pool.query('INSERT INTO users (userName, email, password, firstName, lastName) VALUES ($1, $2, $3, $4, $5) RETURNING *', [userName, email, hash, firstName, lastName], (error, results) => {
+            if (error) {
+              throw error
+            }
+            res.status(201).json({
+                success: true, 
+                message:`User registered: ${results.rows[0].id}`
+            }) 
+        })
     }catch(error){
         res.status(400).json({
             success: false,
