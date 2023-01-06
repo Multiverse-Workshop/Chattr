@@ -12,7 +12,7 @@ const{
 //routers
 router.get('*/users', getAllUsers);
 router.get('*/users/:id', getUserById);
-router.get('*/register', registerUser);
+router.post('*/register', registerUser);
 router.get('*/login', loginUser);
 
 module.exports = router;
