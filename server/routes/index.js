@@ -6,7 +6,7 @@ const{
     getAllUsers,
     getUserById,
     loginUser,
-    registerUser
+    registerUser,
 } = require('../controller/index');
 
 //routers
