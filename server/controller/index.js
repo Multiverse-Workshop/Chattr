@@ -2,10 +2,17 @@ require('dotenv').config()
 const Data = require('../data.json');
 const pool = require('../queries');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const secret = process.env.JWT_SECRET
 
 exports.registerUser = async(req, res) => {
     const {username, email, password, firstName, lastName} = req.body;
     try{
+        if(!username || !email || !password || !firstName || !lastName){
+            res.status(400).send(`Please include all fields to register`);
+        }
+        //add something to check if user already exists
         const hash = await bcrypt.hash(password, 10);
         pool.query('INSERT INTO users (username, email, password, firstName, lastName) VALUES ($1, $2, $3, $4, $5) RETURNING *', [username, email, hash, firstName, lastName], (error, results) => {
             if (error) {
@@ -13,7 +20,10 @@ exports.registerUser = async(req, res) => {
             }
             res.status(201).json({
                 success: true, 
-                message:`User registered: ${results.rows[0].username}`
+                message:`User registered: ${results.rows[0].username}`,
+                token: jwt.sign({userId: results.rows[0].id, username: results.rows[0].username}, secret, {
+                    expiresIn: '30d'
+                })
             }) 
         })
     }catch(error){
