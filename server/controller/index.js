@@ -2,7 +2,6 @@ require("dotenv").config();
 const pool = require("../queries");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const e = require("express");
 
 const secret = process.env.JWT_SECRET;
 
