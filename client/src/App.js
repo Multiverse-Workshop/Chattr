@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { socket } from "./utils/socketConnection";
 import { useEffect } from "react";
 import BrowserRouter from "./components/BrowserRouter";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/ErrorFallback";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,12 +24,20 @@ function App() {
   let loggedin = users.user.loggedin;
 
   if (!loggedin) {
-    return <Login />;
+    return (
+      <>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Login />;
+        </ErrorBoundary>
+      </>
+    );
   }
 
   return (
     <>
-      <BrowserRouter socket={socket} />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <BrowserRouter socket={socket} />
+      </ErrorBoundary>
     </>
   );
 }
