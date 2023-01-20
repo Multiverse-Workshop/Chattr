@@ -3,6 +3,7 @@
         {
             "id": 2343253342,
             "user": "HarryPotter",
+            "sentTo": "SuperUser",
             "message": "Hey what's up",
             "date": "2023-01-03",
             "sent": true,
@@ -11,8 +12,9 @@
         }, 
 
         {
-            "id": 2343253342,
+            "id": 462436346,
             "user": "SuperUser",
+            "sentTo": "Voldemort",
             "message": "Nothing",
             "date": "2023-01-03",
             "sent": true,
@@ -21,8 +23,21 @@
         },
 
         {
-            "id": 2343253342,
+            "id": 958679764,
             "user": "SuperUser",
+            "sentTo": "Voldemort",
+            "message": "okayyy then",
+            "date": "2023-01-03",
+            "sent": true,
+            "delivered": true,
+            "deliveredAt": "10:56"
+        }
+        ,
+
+        {
+            "id": 134543646,
+            "user": "HarryP",
+            "sentTo": "Voldemort",
             "message": "okayyy then",
             "date": "2023-01-03",
             "sent": true,
