@@ -1,5 +1,4 @@
 require("dotenv").config();
-const Data = require("../data.json");
 const pool = require("../queries");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -82,6 +81,16 @@ exports.loginUser = async (req, res) => {
           ? res.status(200).json({
               success: true,
               message: `${username} has been logged in`,
+              token: jwt.sign(
+                {
+                  userId: results.rows[0].id,
+                  username: results.rows[0].username,
+                },
+                secret,
+                {
+                  expiresIn: "30d",
+                }
+              ),
             })
           : res.status(400).json({
               success: false,
