@@ -1,18 +1,33 @@
 {
-    "Users": [
+    "messages": [
         {
-            "name": "Dakotah Du Charme",
-            "id": 1
+            "id": 2343253342,
+            "user": "HarryPotter",
+            "message": "Hey what's up",
+            "date": "2023-01-03",
+            "sent": true,
+            "delivered": true,
+            "deliveredAt": "10:53"
         }, 
 
         {
-            "name": "Andrea Berrocal",
-            "id": 2
+            "id": 2343253342,
+            "user": "SuperUser",
+            "message": "Nothing",
+            "date": "2023-01-03",
+            "sent": true,
+            "delivered": true,
+            "deliveredAt": "10:57"
         },
 
         {
-            "name": "Roohan Sidhu",
-            "id": 3
+            "id": 2343253342,
+            "user": "SuperUser",
+            "message": "okayyy then",
+            "date": "2023-01-03",
+            "sent": true,
+            "delivered": true,
+            "deliveredAt": "10:56"
         }
     ]
 }
