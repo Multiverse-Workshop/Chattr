@@ -10,7 +10,8 @@ const{
     getUserByUserName,
     deleteUserById,
     deleteUserByUserName,
-    getMessageFromUsername
+    getMessagesFromUsername,
+    protectedRoute
 } = require('../controller/index');
 
 //routers
@@ -21,7 +22,7 @@ router.post('*/login', loginUser);
 router.get('*/users/username/:username', getUserByUserName);
 router.delete('*/users/id/:id', deleteUserById);
 router.delete('*/users/username/:username', deleteUserByUserName);
-router.get('*/messages/:username', getMessageFromUsername);
+router.get('*/messages', protectedRoute, getMessagesFromUsername);
 
 
 

@@ -2,9 +2,47 @@ require("dotenv").config();
 const pool = require("../queries");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {messages} = require('../data.json')
+const { messages } = require("../data.json");
 
 const secret = process.env.JWT_SECRET;
+
+//validate token and user
+exports.protectedRoute = async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      token = req.headers.authorization.split(" ")[1];
+      const userToken = jwt.verify(token, secret);
+
+      pool.query(
+        "SELECT * FROM users WHERE username = $1",
+        [userToken.username],
+        async (error, results) => {
+          if (error) {
+            throw error;
+          }
+          req.username = results.rows[0].username;
+          next();
+        }
+      );
+    } catch (error) {
+      res.status(401).json({
+        success: false,
+        message: `'Not authorized to access' - Error: ${error}`,
+      });
+    }
+  }
+  if (!token) {
+    res.status(401).json({
+      success: false,
+      message: `'Not authorized to access'`,
+    });
+  }
+};
 
 exports.registerUser = async (req, res) => {
   const { username, email, password, firstname, lastname } = req.body;
@@ -27,7 +65,7 @@ exports.registerUser = async (req, res) => {
           });
         }
         //user does not exist then add them
-        else{
+        else {
           const hash = await bcrypt.hash(password, 10);
           pool.query(
             "INSERT INTO users (username, email, password, firstName, lastName) VALUES ($1, $2, $3, $4, $5) RETURNING *",
@@ -150,34 +188,34 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.getUserByUserName = async (req, res) => {
-    try {
-      const username = req.params.username;
-      console.log(username)
-      console.log(typeof username)
-      pool.query(
-        "SELECT * FROM users WHERE username = $1",
-        [username],
-        async (error, results) => {
-          if (error) {
-            throw error;
-          }
-          res.status(200).json({
-            success: true,
-            message: results.rows[0],
-          });
+  try {
+    const username = req.params.username;
+    console.log(username);
+    console.log(typeof username);
+    pool.query(
+      "SELECT * FROM users WHERE username = $1",
+      [username],
+      async (error, results) => {
+        if (error) {
+          throw error;
         }
-      );
-    } catch (error) {
-      res.status(400).json({
-        success: false,
-        message: `${username} not found - Error: ${error}`,
-      });
-    }
-  };
+        res.status(200).json({
+          success: true,
+          message: results.rows[0],
+        });
+      }
+    );
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: `${username} not found - Error: ${error}`,
+    });
+  }
+};
 
-  exports.deleteUserById = async(req, res) => {
-    try{
-        const id = Number(req.params.id);
+exports.deleteUserById = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
     pool.query(
       "DELETE FROM users WHERE id = $1",
       [id],
@@ -191,17 +229,16 @@ exports.getUserByUserName = async (req, res) => {
         });
       }
     );
-
-    }catch(error){
-        res.status(400).json({
-            success: false,
-            message: `user with id: ${id} could not be deleted - Error: ${error}`,
-          });
-    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: `user with id: ${id} could not be deleted - Error: ${error}`,
+    });
   }
-  exports.deleteUserByUserName = async(req, res) => {
-    try{
-        const username = req.params.username;
+};
+exports.deleteUserByUserName = async (req, res) => {
+  try {
+    const username = req.params.username;
     pool.query(
       "DELETE FROM users WHERE username = $1",
       [username],
@@ -215,37 +252,47 @@ exports.getUserByUserName = async (req, res) => {
         });
       }
     );
-
-    }catch(error){
-        res.status(400).json({
-            success: false,
-            message: `${username} could not be deleted - Error: ${error}`,
-          });
-    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: `${username} could not be deleted - Error: ${error}`,
+    });
   }
+};
 
-  exports.getMessageFromUsername = async(req,res) => {
-    try{
-        const username = req.params.username;
+//only returns messages associates with user login - due to token validation
+exports.getMessagesFromUsername = async (req, res) => {
+  try {
+    const username = req.username;
+    //at this point user should be logged in with token
+    pool.query(
+      "SELECT * FROM users WHERE username = $1",
+      [username],
+      async (error, results) => {
+        if (error) {
+          throw error;
+        }
 
-        //at this point user should be logged in with token
+        const userMessages = messages.filter(
+          (message) => username == message.user
+        );
+        console.log(userMessages);
 
-        const userMessages = messages.filter((message) => username == message.user)
-        console.log(userMessages)
-        
-        userMessages ? 
-        res.status(200).json({
-            success: true,
-            message: JSON.stringify(userMessages),
-          }) : res.status(400).json({
-            success: true,
-            message: `${username} does not have messages`,
-          })
-
-    }catch(error){
-        res.status(400).json({
-            success: false,
-            message: `Error: ${error}`,
-          });
-    }
+        userMessages.length > 0
+          ? res.status(200).json({
+              success: true,
+              message: JSON.stringify(userMessages),
+            })
+          : res.status(400).json({
+              success: true,
+              message: `${username} does not have messages`,
+            });
+      }
+    );
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: `Not Authorized: ${error}`,
+    });
   }
+};
