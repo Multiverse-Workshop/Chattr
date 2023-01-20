@@ -13,6 +13,6 @@ const{
 router.get('*/users', getAllUsers);
 router.get('*/users/:id', getUserById);
 router.post('*/register', registerUser);
-router.get('*/login', loginUser);
+router.post('*/login', loginUser);
 
 module.exports = router;
