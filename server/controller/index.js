@@ -139,3 +139,54 @@ exports.getUserById = async (req, res) => {
     });
   }
 };
+
+exports.getUserByUserName = async (req, res) => {
+    try {
+      const username = req.params.username;
+      console.log(username)
+      console.log(typeof username)
+      pool.query(
+        "SELECT * FROM users WHERE username = $1",
+        [username],
+        async (error, results) => {
+          if (error) {
+            throw error;
+          }
+          res.status(200).json({
+            success: true,
+            message: results.rows[0],
+          });
+        }
+      );
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: `${username} not found - Error: ${error}`,
+      });
+    }
+  };
+
+  exports.deleteUserById = async(req, res) => {
+    try{
+        const id = Number(req.params.id);
+    pool.query(
+      "SELECT * FROM users WHERE id = $1",
+      [id],
+      async (error, results) => {
+        if (error) {
+          throw error;
+        }
+        res.status(200).json({
+          success: true,
+          message: results.rows,
+        });
+      }
+    );
+
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message: `user with id: ${id} could not be deleted - Error: ${error}`,
+          });
+    }
+  }
