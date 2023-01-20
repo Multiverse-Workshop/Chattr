@@ -274,7 +274,7 @@ exports.getMessagesFromUsername = async (req, res) => {
         }
 
         const userMessages = messages.filter(
-          (message) => username == message.user
+          (message) => username == message.user || username === message.sentTo
         );
         console.log(userMessages);
 
