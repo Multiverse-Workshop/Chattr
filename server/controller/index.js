@@ -2,6 +2,7 @@ require("dotenv").config();
 const pool = require("../queries");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {messages} = require('../data.json')
 
 const secret = process.env.JWT_SECRET;
 
@@ -219,6 +220,32 @@ exports.getUserByUserName = async (req, res) => {
         res.status(400).json({
             success: false,
             message: `${username} could not be deleted - Error: ${error}`,
+          });
+    }
+  }
+
+  exports.getMessageFromUsername = async(req,res) => {
+    try{
+        const username = req.params.username;
+
+        //at this point user should be logged in with token
+
+        const userMessages = messages.filter((message) => username == message.user)
+        console.log(userMessages)
+        
+        userMessages ? 
+        res.status(200).json({
+            success: true,
+            message: JSON.stringify(userMessages),
+          }) : res.status(400).json({
+            success: true,
+            message: `${username} does not have messages`,
+          })
+
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message: `Error: ${error}`,
           });
     }
   }
