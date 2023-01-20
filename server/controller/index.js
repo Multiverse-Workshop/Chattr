@@ -32,14 +32,14 @@ exports.protectedRoute = async (req, res, next) => {
     } catch (error) {
       res.status(401).json({
         success: false,
-        message: `'Not authorized to access' - Error: ${error}`,
+        message: `Not authorized to access - Error: ${error}`,
       });
     }
   }
   if (!token) {
     res.status(401).json({
       success: false,
-      message: `'Not authorized to access'`,
+      message: `Not authorized to access`,
     });
   }
 };
@@ -48,7 +48,7 @@ exports.registerUser = async (req, res) => {
   const { username, email, password, firstname, lastname } = req.body;
   try {
     if (!username || !email || !password || !firstname || !lastname) {
-      res.status(400).send(`Please include all fields to register`);
+      res.status(400).json({success:false, message:`Please include all fields to register`});
     }
     //check if user exists
     pool.query(
