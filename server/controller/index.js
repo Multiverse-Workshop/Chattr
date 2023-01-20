@@ -190,3 +190,27 @@ exports.getUserByUserName = async (req, res) => {
           });
     }
   }
+  exports.deleteUserByUserName = async(req, res) => {
+    try{
+        const username = req.params.username;
+    pool.query(
+      "DELETE FROM users WHERE username = $1",
+      [username],
+      async (error, results) => {
+        if (error) {
+          throw error;
+        }
+        res.status(200).json({
+          success: true,
+          message: `${username} has been deleted`,
+        });
+      }
+    );
+
+    }catch(error){
+        res.status(400).json({
+            success: false,
+            message: `${username} could not be deleted - Error: ${error}`,
+          });
+    }
+  }

@@ -8,7 +8,8 @@ const{
     loginUser,
     registerUser,
     getUserByUserName,
-    deleteUserById
+    deleteUserById,
+    deleteUserByUserName
 } = require('../controller/index');
 
 //routers
@@ -17,7 +18,9 @@ router.get('*/users/id/:id', getUserById);
 router.post('*/register', registerUser);
 router.post('*/login', loginUser);
 router.get('*/users/username/:username', getUserByUserName);
-router.delete('*/users/id/:id', deleteUserById)
+router.delete('*/users/id/:id', deleteUserById);
+router.delete('*/users/username/:username', deleteUserByUserName)
+
 
 
 module.exports = router;
