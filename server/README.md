@@ -114,7 +114,7 @@ Must pass in all required fields. See example below:
 ```
 ### Method: POST
 >```
->{{URL}}/api/register
+>{{URL}}/api/users/register
 >```
 ### Body (**raw**)
 
@@ -145,7 +145,7 @@ Must pass in a username and password in json format
 ```
 ### Method: POST
 >```
->{{URL}}/api/login
+>{{URL}}/api/users/login
 >```
 ### Body (**raw**)
 
