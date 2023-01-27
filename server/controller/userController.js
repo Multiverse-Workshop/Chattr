@@ -198,7 +198,9 @@ exports.registerUser = async (req, res) => {
   //user can only delete their own account
   exports.deleteUserByUserName = async (req, res) => {
     try {
-      const username = req.username;
+      const authUsername = req.username;
+      const {username} = req.params
+      if(authUsername === username){
       pool.query(
         "DELETE FROM users WHERE username = $1",
         [username],
@@ -212,6 +214,13 @@ exports.registerUser = async (req, res) => {
           });
         }
       );
+      }
+      else{
+        res.status(400).json({
+          success: false,
+          message: `You are not authorized to delete this user`,
+        });
+      }
     } catch (error) {
       res.status(400).json({
         success: false,
