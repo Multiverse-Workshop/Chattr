@@ -2,16 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a project to showcase fundamental usage of socket.io, logging, postgresql, redux toolkit, express, daisyUI, and tailwind. 
 
+## Readme for Chattr API
+- [click here for README for Chattr API](https://github.com/Multiverse-Workshop/Chattr/tree/dev/server#readme)
+
 ## How to get project started on local machine
 
   1.    Fork then clone main branch
   2.    change directories into server and ```npm install```
   3.    change directories into client and ```npm install```
-  4.    If you are running into any issues with ```npm install```, try deleting the package-lock.json in client and server then retry ```npm install```
+  4.    If you are running into any issues with ```npm install```, try deleting the ```package-lock.json``` in client and server then retry ```npm install```
 
 ## To run project on local
 1. ```npm run dev``` in server directory
-   - to view logger working, you will want to keep this terminal open.
 2.  ```npm start``` in client directory 
 
 ## How to use app
@@ -26,7 +28,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Add functionality so users can message a specific person
 - For sidebar change ```<a>``` tags to use react-router-dom and add different functionality for links
 - functionality for user login or sign up not just anon login
-- After sending message, anything in text field is deleted
-- Ability to send message by clicking enter button
-- Auto-scroll to bottom of messages
-- Current errorboundary is very basic, possibly add more functionality to it
+
