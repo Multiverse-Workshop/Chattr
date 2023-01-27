@@ -1,5 +1,4 @@
-# Project: Chattr
-API for chattr
+# Project: API for chattr
 
 successful api calls return `success: true` and any needed data
 
@@ -18,7 +17,7 @@ This route returns a json object with user password as a hash and success as tru
             "id": 5,
             "username": "SuperUser",
             "email": "aberrocal@testmail.com",
-            "password": {{hash would be here}},
+            "password": "hash would be here",
             "firstname": "Andrea",
             "lastname": "Berrocal"
         },
@@ -26,7 +25,7 @@ This route returns a json object with user password as a hash and success as tru
             "id": 15,
             "username": "TestUser",
             "email": "test@testmail.com",
-            "password": {{hash would be here}},
+            "password": "hash would be here",
             "firstname": "TestName",
             "lastname": "TestLast"
         }
@@ -56,7 +55,7 @@ Example of successful call
             "id": 5,
             "username": "SuperUser",
             "email": "aberrocal@testmail.com",
-            "password": {{hash would be here}},
+            "password": "hash would be here",
             "firstname": "Andrea",
             "lastname": "Berrocal"
         }
@@ -85,7 +84,7 @@ Example of successful call
         "id": 5,
         "username": "SuperUser",
         "email": "aberrocal@testmail.com",
-        "password": {{hash would be here}},
+        "password": "hash would be here",
         "firstname": "Andrea",
         "lastname": "Berrocal"
     }
