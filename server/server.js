@@ -3,7 +3,8 @@ require('dotenv').config()
 const { Server } = require("socket.io");
 const { socketIO } = require("./socket/socket");
 const app = express();
-const routes = require('./routes/index');
+const userRouter = require('./routes/userRoutes');
+const messageRouter = require('./routes/messageRoutes');
 
 const server = require("http").createServer(app);
 
@@ -14,7 +15,8 @@ const io = new Server(server, {
   },
 });
 app.use(express.json());
-app.use('/api', routes);
+app.use('/api/users', userRouter);
+app.use('/api/messages', messageRouter);
 
 socketIO(io);
 
