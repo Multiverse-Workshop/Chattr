@@ -45,8 +45,6 @@ exports.protectedRoute = async (req, res, next) => {
   }
 };
 exports.isAdmin = async (req, res, next) => {
-  console.log(req.username, req.admin)
-
   if (req.username && req.admin) {
     next();
   } else {
@@ -203,8 +201,6 @@ exports.getUserById = async (req, res) => {
 exports.getUserByUserName = async (req, res) => {
   try {
     const username = req.params.username;
-    console.log(username);
-    console.log(typeof username);
     pool.query(
       "SELECT * FROM users WHERE username = $1",
       [username],
@@ -290,7 +286,6 @@ exports.getMessagesFromUsername = async (req, res) => {
         const userMessages = messages.filter(
           (message) => username == message.user || username === message.sentTo
         );
-        console.log(userMessages);
 
         userMessages.length > 0
           ? res.status(200).json({
