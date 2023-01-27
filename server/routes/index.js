@@ -7,12 +7,29 @@ const{
     getUserById,
     loginUser,
     registerUser,
+    getUserByUserName,
+    deleteUserById,
+    deleteUserByUserName,
+    getMessagesFromUsername,
+    protectedRoute,
+    editMessageById,
+    deleteMessageById,
+    getAllMessages,
+    isAdmin
 } = require('../controller/index');
 
 //routers
 router.get('*/users', getAllUsers);
-router.get('*/users/:id', getUserById);
+router.get('*/users/id/:id', getUserById);
 router.post('*/register', registerUser);
 router.post('*/login', loginUser);
+router.get('*/users/username/:username', getUserByUserName);
+router.delete('*/users/admin/id/:id',protectedRoute, isAdmin, deleteUserById);
+router.delete('*/users/username/:username', protectedRoute, deleteUserByUserName);
+router.get('*/messages', protectedRoute, getMessagesFromUsername);
+router.put('*/messages/id/:id',protectedRoute, editMessageById);
+router.delete('*/messages/id/:id',protectedRoute, deleteMessageById);
+router.get('*/messages/admin', protectedRoute, isAdmin, getAllMessages);
+
 
 module.exports = router;
