@@ -11,7 +11,9 @@ const{
     deleteUserById,
     deleteUserByUserName,
     getMessagesFromUsername,
-    protectedRoute
+    protectedRoute,
+    editMessageById,
+    deleteMessageById
 } = require('../controller/index');
 
 //routers
@@ -23,6 +25,9 @@ router.get('*/users/username/:username', getUserByUserName);
 router.delete('*/users/id/:id', deleteUserById);
 router.delete('*/users/username/:username', deleteUserByUserName);
 router.get('*/messages', protectedRoute, getMessagesFromUsername);
+router.put('*/messages/id/:id',protectedRoute, editMessageById);
+router.delete('*/messages/id/:id',protectedRoute, deleteMessageById);
+
 
 
 
