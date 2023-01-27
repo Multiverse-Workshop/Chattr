@@ -26,6 +26,7 @@ exports.protectedRoute = async (req, res, next) => {
             throw error;
           }
           req.username = results.rows[0].username;
+          req.admin = results.rows[0].admin;
           next();
         }
       );
@@ -43,6 +44,18 @@ exports.protectedRoute = async (req, res, next) => {
     });
   }
 };
+exports.isAdmin = async (req, res, next) => {
+  console.log(req.username, req.admin)
+
+  if (req.username && req.admin) {
+    next();
+  } else {
+    res.status(401).json({
+      success: false,
+      message: `You are not authorized, not an admin`
+    });
+  }
+}
 
 exports.registerUser = async (req, res) => {
   const { username, email, password, firstname, lastname } = req.body;
@@ -212,7 +225,7 @@ exports.getUserByUserName = async (req, res) => {
     });
   }
 };
-
+//only admin users can use this route - they can delete anyone by user id
 exports.deleteUserById = async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -236,9 +249,10 @@ exports.deleteUserById = async (req, res) => {
     });
   }
 };
+//user can only delete their own account
 exports.deleteUserByUserName = async (req, res) => {
   try {
-    const username = req.params.username;
+    const username = req.username;
     pool.query(
       "DELETE FROM users WHERE username = $1",
       [username],
@@ -371,6 +385,32 @@ exports.deleteMessageById = async (req, res) => {
         }
       });
       
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: `Not Authorized: ${error}`,
+    });
+  }
+}
+
+//this route can only be completed by an admin user
+exports.getAllMessages = async(req, res) => {
+  try {
+    const username = req.username;
+    //at this point user should be logged in with token
+    pool.query(
+      "SELECT * FROM users WHERE username = $1",
+      [username],
+      async (error, results) => {
+        if (error) {
+          throw error;
+        }
+        
+          res.status(200).json({
+            success:true,
+            message: JSON.stringify(messages)
+          })
+        });
   } catch (error) {
     res.status(401).json({
       success: false,
