@@ -10,6 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   1.    Fork then clone main branch
   2.    change directories into server and ```npm install```
   3.    change directories into client and ```npm install```
+  4.    If you are running into any issues with ```npm install```, try deleting the ```package-lock.json``` in client and server then retry ```npm install```
 
 ## To run project on local
 1. ```npm run dev``` in server directory
