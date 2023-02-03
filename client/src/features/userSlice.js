@@ -72,6 +72,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    anonLogin: (state, action) => {
+      //replace current state with new state
+      state.user = { ...action.payload };
+    },
     logout: (state) => {
       //revert to original
       state = {
@@ -111,6 +115,6 @@ const userSlice = createSlice({
 });
 
 //export actions
-export const {  } = userSlice.actions;
+export const { anonLogin, logout } = userSlice.actions;
 //export reducers
 export default userSlice.reducer;

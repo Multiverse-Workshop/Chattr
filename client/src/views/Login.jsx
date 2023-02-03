@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login, loginUser, registerUser } from "../features/userSlice";
+import { anonLogin, loginUser, registerUser } from "../features/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,10 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const anonLogin = () => {
+  const anon = () => {
     try {
       dispatch(
-        login({
+        anonLogin({
           loggedin: true,
           username: "ANON",
           img: "https://placeimg.com/192/192/people",
@@ -76,7 +76,7 @@ function Login() {
             <button className="btn btn-active btn-secondary" onClick={register}>
               Sign Up
             </button>
-            <button className="btn btn-active " onClick={anonLogin}>
+            <button className="btn btn-active " onClick={anon}>
               Anonymous
             </button>
           </div>
