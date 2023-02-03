@@ -2,9 +2,14 @@ const express = require("express");
 require('dotenv').config()
 const { Server } = require("socket.io");
 const { socketIO } = require("./socket/socket");
+var cors = require('cors')
 const app = express();
 const userRouter = require('./routes/userRoutes');
 const messageRouter = require('./routes/messageRoutes');
+
+var corsOptions = {
+  origin: 'http://localhost:3000',
+}
 
 const server = require("http").createServer(app);
 
@@ -15,8 +20,8 @@ const io = new Server(server, {
   },
 });
 app.use(express.json());
-app.use('/api/users', userRouter);
-app.use('/api/messages', messageRouter);
+app.use('/api/users', cors(corsOptions), userRouter);
+app.use('/api/messages', cors(corsOptions), messageRouter);
 
 socketIO(io);
 
