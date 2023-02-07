@@ -49,6 +49,7 @@ function Login() {
         username: username,
         password: password,
       }))
+      navigate("/chat");
     }catch(e){
       console.log(e)
     }
@@ -66,7 +67,7 @@ function Login() {
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className="input input-bordered input-secondary w-full max-w-xs"
             onChange={(e) => setPassword(e.target.value)}
