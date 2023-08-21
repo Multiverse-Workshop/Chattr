@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a project to showcase fundamental usage of socket.io, logging, postgresql, redux toolkit, express, daisyUI, and tailwind. 
 
+![Screen Shot 2023-08-21 at 10 49 25 AM](https://github.com/Multiverse-Workshop/Chattr/assets/77519894/ba867011-bc60-4d05-b808-691927291e81)
+![Screen Shot 2023-08-21 at 10 56 59 AM](https://github.com/Multiverse-Workshop/Chattr/assets/77519894/6856e07f-2432-4ae5-b16e-fea0c9c3e7d9)
+
 ## Readme for Chattr API
 - [click here for README for Chattr API](https://github.com/Multiverse-Workshop/Chattr/tree/dev/server#readme)
 
