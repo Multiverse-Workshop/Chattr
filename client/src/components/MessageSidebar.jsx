@@ -14,14 +14,14 @@ function MessageSideBar({ socket }) {
             placeholder="Search"
             className="input input-bordered w-full max-w-xs"
           />
-          {users.map((user, index) => {
+          {users.map((user, key, index) => {
             return (
-              <a key={index}>
+              <a key={key}>
                 <div className="messages">
                   <div className="avatar-div">
                     <div className="avatar online">
                       <div className="w-10 rounded-full">
-                        <img src="https://placeimg.com/192/192/people" />
+                        <img src={`https://placekitten.com/${key + 200}/${key + 200}`} />
                       </div>
                     </div>
                   </div>

@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
       return {
           loggedin: true,
           username: data.username,
-          img: "https://placeimg.com/192/192/people",
+          img: "https://placekitten.com/249/249",
       };
     } catch (error) {
       //we could pass in error.message and this would appear in the action.payload if something went wrong
@@ -57,7 +57,7 @@ export const loginUser = createAsyncThunk(
       return {
           loggedin: true,
           username: data.username,
-          img: "https://placeimg.com/192/192/people",
+          img: "https://placekitten.com/249/249",
       };
     } catch (error) {
       //we could pass in error.message and this would appear in the action.payload if something went wrong

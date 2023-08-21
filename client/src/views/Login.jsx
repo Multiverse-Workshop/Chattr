@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { anonLogin, loginUser, registerUser } from "../features/userSlice";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -17,7 +16,7 @@ function Login() {
         anonLogin({
           loggedin: true,
           username: "ANON",
-          img: "https://placeimg.com/192/192/people",
+          img: "https://placekitten.com/250/250",
         })
       );
       navigate("/chat");

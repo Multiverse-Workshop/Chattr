@@ -23,7 +23,7 @@ function SideNav() {
           <a>
             <div className="avatar">
               <div className="w-10 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
-                <img src="https://placeimg.com/192/192/people" alt="pfp" />
+                <img src="https://placekitten.com/248/248" alt="pfp" />
               </div>
             </div>
           </a>

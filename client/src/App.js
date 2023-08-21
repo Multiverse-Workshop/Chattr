@@ -22,7 +22,6 @@ function App() {
 
   const users = useSelector((store) => store.user);
   let loggedin = users.user.loggedin;
-
   if (!loggedin) {
     return (
       <>
